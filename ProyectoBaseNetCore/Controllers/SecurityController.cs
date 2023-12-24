@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ProyectoBaseNetCore.DTOs.SecurityDTOs;
 using ProyectoBaseNetCore.Entities;
@@ -23,14 +24,17 @@ namespace ProyectoBaseNetCore.Controllers
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly HashService hashService;
         private readonly IDataProtector dataProtector;
+        private readonly ApplicationDbContext _context;
         private string JWTKey { get; set; }
 
-        public SecurityController(UserManager<ApplicationUser> userManager,
+        public SecurityController(ApplicationDbContext context,
+                                UserManager<ApplicationUser> userManager,
                                  IConfiguration configuration,
                                  SignInManager<ApplicationUser> signInManager,
                                  IDataProtectionProvider dataProtectionProvider,
                                  HashService hashService)
         {
+            _context = context;
             JWTKey = configuration["JWTKey"];
             this.userManager = userManager;
             this.configuration = configuration;
@@ -88,12 +92,31 @@ namespace ProyectoBaseNetCore.Controllers
         {
             try
             {
-                var usuario = new ApplicationUser { UserName = credencialesUsuario.Email, Email = credencialesUsuario.Email };
+                if (credencialesUsuario.IsClient && !string.IsNullOrEmpty(credencialesUsuario.Cedula))
+                {
+                    var Client = await _context.Cliente.Where(x => x.Activo && x.Identificacion.Equals(credencialesUsuario.Cedula.Trim())).FirstOrDefaultAsync();
+                    if (Client is null) throw new Exception("Cliente no registrado en el sistema de Aniaml Vet!");
+                    if (!string.IsNullOrEmpty(Client.IdUser)) throw new Exception("Ya existe un cliente asociado con esta cédula!");
+                }
+                var usuario = new ApplicationUser
+                {
+                    UserName = credencialesUsuario.Email,
+                    Email = credencialesUsuario.Email,
+                    LastName = credencialesUsuario.LastName,
+                    FirstName = credencialesUsuario.FirstName,
+                };
                 usuario.FirstName = credencialesUsuario.Email;
                 var resultado = await userManager.CreateAsync(usuario, credencialesUsuario.Password);
 
                 if (resultado.Succeeded)
                 {
+                    if (credencialesUsuario.IsClient && !string.IsNullOrEmpty(credencialesUsuario.Cedula))
+                    {
+                        var IdUser = (await userManager.FindByEmailAsync(credencialesUsuario.Email)).Id;
+                        var Client = await _context.Cliente.Where(x => x.Activo && x.Identificacion.Equals(credencialesUsuario.Cedula.Trim())).FirstOrDefaultAsync();
+                        Client.IdUser = IdUser;
+                        await _context.SaveChangesAsync();
+                    }
                     return await ConstruirToken(credencialesUsuario);
                 }
                 else
