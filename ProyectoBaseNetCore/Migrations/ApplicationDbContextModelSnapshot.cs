@@ -8,7 +8,7 @@ using ProyectoBaseNetCore;
 
 #nullable disable
 
-namespace ProyectoBaseNetCore.Migrations
+namespace VET_ANIMAL_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

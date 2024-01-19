@@ -9,11 +9,11 @@ using ProyectoBaseNetCore;
 
 #nullable disable
 
-namespace ProyectoBaseNetCore.Migrations
+namespace VET_ANIMAL_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231224075716_AnimalVet.0006")]
-    partial class AnimalVet0006
+    [Migration("20240119033431_AnimalVet.0001")]
+    partial class AnimalVet0001
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
