@@ -63,7 +63,7 @@ namespace ProyectoBaseNetCore
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+               options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
            );
             }
             else
