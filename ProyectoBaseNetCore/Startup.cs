@@ -56,9 +56,23 @@ namespace ProyectoBaseNetCore
                 loggingBuilder.AddSerilog(Log.Logger);
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            Console.WriteLine($"ConnectionString: {connectionString}");
+            var url = Environment.GetEnvironmentVariable("DATABASE_URL");
+            Console.WriteLine($"ConnectionString2: {url}");
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+               options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
+           );
+            }
+            else
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+               options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection") ?? Environment.GetEnvironmentVariable("DATABASE_URL"))
             );
+            }
+
 
             //Autenticacion
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
@@ -157,6 +171,11 @@ namespace ProyectoBaseNetCore
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+                dbContext.Database.Migrate();
+            }
             //Captar todas las peticiones en logs y en terminal
             app.UseMiddleware<LogHTTPResponseMiddleware>();
             app.UseLoggerResponseHTTP();
