@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -26,8 +27,8 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdCatalog = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CatalogName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CatalogName = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,24 +41,24 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdCliente = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Identificacion = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Nombres = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IdUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Telefono = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Correo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Direccion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    Activo = table.Column<bool>(type: "bit", nullable: false),
-                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    FechaEliminacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IpRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Codigo = table.Column<string>(type: "text", nullable: true),
+                    Identificacion = table.Column<string>(type: "text", nullable: true),
+                    Nombres = table.Column<string>(type: "text", nullable: true),
+                    IdUser = table.Column<string>(type: "text", nullable: true),
+                    Telefono = table.Column<string>(type: "text", nullable: true),
+                    Correo = table.Column<string>(type: "text", nullable: true),
+                    Direccion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    Activo = table.Column<bool>(type: "boolean", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    FechaEliminacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IpRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -70,19 +71,19 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdCodigosSecuencia = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UltimoNumero = table.Column<int>(type: "int", nullable: false),
-                    Activo = table.Column<bool>(type: "bit", nullable: false),
-                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    FechaEliminacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IpRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Codigo = table.Column<string>(type: "text", nullable: true),
+                    UltimoNumero = table.Column<int>(type: "integer", nullable: false),
+                    Activo = table.Column<bool>(type: "boolean", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    FechaEliminacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IpRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -95,19 +96,19 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdEnfermedad = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CodigoEnfermedad = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Activo = table.Column<bool>(type: "bit", nullable: false),
-                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    FechaEliminacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IpRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CodigoEnfermedad = table.Column<string>(type: "text", nullable: true),
+                    Nombre = table.Column<string>(type: "text", nullable: true),
+                    Activo = table.Column<bool>(type: "boolean", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    FechaEliminacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IpRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -120,8 +121,8 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdForm = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FormName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FormName = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -134,19 +135,19 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdMotivo = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Destalle = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Activo = table.Column<bool>(type: "bit", nullable: false),
-                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    FechaEliminacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IpRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Nombre = table.Column<string>(type: "text", nullable: true),
+                    Destalle = table.Column<string>(type: "text", nullable: true),
+                    Activo = table.Column<bool>(type: "boolean", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    FechaEliminacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IpRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -159,8 +160,8 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdQuestionType = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    QuestionTypeName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    QuestionTypeName = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -172,10 +173,10 @@ namespace VET_ANIMAL_API.Migrations
                 schema: "SEG",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -188,11 +189,11 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdSection = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SectionName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsVisible = table.Column<bool>(type: "bit", nullable: false),
-                    IsEnable = table.Column<bool>(type: "bit", nullable: false),
-                    IsRequired = table.Column<bool>(type: "bit", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SectionName = table.Column<string>(type: "text", nullable: false),
+                    IsVisible = table.Column<bool>(type: "boolean", nullable: false),
+                    IsEnable = table.Column<bool>(type: "boolean", nullable: false),
+                    IsRequired = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -205,19 +206,19 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdSintoma = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Activo = table.Column<bool>(type: "bit", nullable: false),
-                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    FechaEliminacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IpRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Nombre = table.Column<string>(type: "text", nullable: true),
+                    Descripcion = table.Column<string>(type: "text", nullable: true),
+                    Activo = table.Column<bool>(type: "boolean", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    FechaEliminacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IpRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -229,24 +230,24 @@ namespace VET_ANIMAL_API.Migrations
                 schema: "SEG",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Bloqueo = table.Column<bool>(type: "bit", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: true),
+                    LastName = table.Column<string>(type: "text", nullable: true),
+                    Bloqueo = table.Column<bool>(type: "boolean", nullable: false),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -259,9 +260,9 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdItem = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ItemName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ItemName = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
                     CatalogIdCatalog = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
@@ -281,24 +282,24 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdMascota = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NombreMascota = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Raza = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Sexo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Codigo = table.Column<string>(type: "text", nullable: true),
+                    NombreMascota = table.Column<string>(type: "text", nullable: true),
+                    Raza = table.Column<string>(type: "text", nullable: true),
+                    Sexo = table.Column<string>(type: "text", nullable: true),
                     Peso = table.Column<float>(type: "real", nullable: true),
-                    FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    FechaNacimiento = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IdCliente = table.Column<long>(type: "bigint", nullable: false),
-                    Activo = table.Column<bool>(type: "bit", nullable: false),
-                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    FechaEliminacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IpRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true)
+                    Activo = table.Column<bool>(type: "boolean", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    FechaEliminacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IpRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -318,21 +319,21 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdTipoEnfermedad = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NombreTipoEnfermedad = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConteoDiagnosticoTipos = table.Column<int>(type: "int", nullable: false),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NombreTipoEnfermedad = table.Column<string>(type: "text", nullable: true),
+                    ConteoDiagnosticoTipos = table.Column<int>(type: "integer", nullable: false),
                     IdEnfermedad = table.Column<long>(type: "bigint", nullable: true),
                     EnfermedadIdEnfermedad = table.Column<long>(type: "bigint", nullable: true),
-                    Activo = table.Column<bool>(type: "bit", nullable: false),
-                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    FechaEliminacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IpRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true)
+                    Activo = table.Column<bool>(type: "boolean", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    FechaEliminacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IpRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -351,19 +352,19 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdQuestion = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    QuestionDesc = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Placeholder = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    QuestionTypeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    QuestionDesc = table.Column<string>(type: "text", nullable: false),
+                    Placeholder = table.Column<string>(type: "text", nullable: true),
+                    QuestionTypeName = table.Column<string>(type: "text", nullable: false),
                     IdQuestionType = table.Column<long>(type: "bigint", nullable: false),
                     IdCatalog = table.Column<long>(type: "bigint", nullable: true),
-                    IsVisible = table.Column<bool>(type: "bit", nullable: false),
-                    IsEnable = table.Column<bool>(type: "bit", nullable: false),
-                    IsRequired = table.Column<bool>(type: "bit", nullable: false),
-                    IsMultiAnswer = table.Column<bool>(type: "bit", nullable: false),
-                    MinAnswersCount = table.Column<int>(type: "int", nullable: false),
-                    MaxAnswersCount = table.Column<int>(type: "int", nullable: false),
-                    MinRequiredAnswersCount = table.Column<int>(type: "int", nullable: false)
+                    IsVisible = table.Column<bool>(type: "boolean", nullable: false),
+                    IsEnable = table.Column<bool>(type: "boolean", nullable: false),
+                    IsRequired = table.Column<bool>(type: "boolean", nullable: false),
+                    IsMultiAnswer = table.Column<bool>(type: "boolean", nullable: false),
+                    MinAnswersCount = table.Column<int>(type: "integer", nullable: false),
+                    MaxAnswersCount = table.Column<int>(type: "integer", nullable: false),
+                    MinRequiredAnswersCount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -388,11 +389,11 @@ namespace VET_ANIMAL_API.Migrations
                 schema: "SEG",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    RoleId = table.Column<string>(type: "text", nullable: false),
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -411,11 +412,11 @@ namespace VET_ANIMAL_API.Migrations
                 schema: "SEG",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -434,10 +435,10 @@ namespace VET_ANIMAL_API.Migrations
                 schema: "SEG",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    ProviderKey = table.Column<string>(type: "text", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -456,8 +457,8 @@ namespace VET_ANIMAL_API.Migrations
                 schema: "SEG",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    RoleId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -483,10 +484,10 @@ namespace VET_ANIMAL_API.Migrations
                 schema: "SEG",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Value = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -506,11 +507,11 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdCatalogItem = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IdCatalog = table.Column<long>(type: "bigint", nullable: false),
                     IdItem = table.Column<long>(type: "bigint", nullable: false),
-                    CatalogOrder = table.Column<int>(type: "int", nullable: false),
-                    ItemOrder = table.Column<int>(type: "int", nullable: false)
+                    CatalogOrder = table.Column<int>(type: "integer", nullable: false),
+                    ItemOrder = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -537,19 +538,19 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdHistoriaClinica = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CodigoHistorial = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CodigoHistorial = table.Column<string>(type: "text", nullable: true),
                     IdMascotas = table.Column<long>(type: "bigint", nullable: false),
-                    Activo = table.Column<bool>(type: "bit", nullable: false),
-                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    FechaEliminacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IpRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true)
+                    Activo = table.Column<bool>(type: "boolean", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    FechaEliminacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IpRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -569,13 +570,13 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdFormSectionQuestion = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IdForm = table.Column<long>(type: "bigint", nullable: false),
                     IdSection = table.Column<long>(type: "bigint", nullable: false),
                     IdQuestion = table.Column<long>(type: "bigint", nullable: false),
-                    FormOrder = table.Column<int>(type: "int", nullable: false),
-                    SectionOrder = table.Column<int>(type: "int", nullable: false),
-                    QuestionOrder = table.Column<int>(type: "int", nullable: false)
+                    FormOrder = table.Column<int>(type: "integer", nullable: false),
+                    SectionOrder = table.Column<int>(type: "integer", nullable: false),
+                    QuestionOrder = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -609,22 +610,22 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdFichaControl = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CodigoFichaControl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CodigoFichaControl = table.Column<string>(type: "text", nullable: true),
                     IdHistoriaClinica = table.Column<long>(type: "bigint", nullable: false),
                     IdMotivo = table.Column<long>(type: "bigint", nullable: false),
                     Peso = table.Column<float>(type: "real", nullable: false),
-                    Observacion = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Activo = table.Column<bool>(type: "bit", nullable: false),
-                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    FechaEliminacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IpRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true)
+                    Observacion = table.Column<string>(type: "text", nullable: true),
+                    Activo = table.Column<bool>(type: "boolean", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    FechaEliminacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IpRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -651,25 +652,25 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdFicha = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CodigoFicha = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CodigoFicha = table.Column<string>(type: "text", nullable: true),
                     HistoriaClinicaIdHistoriaClinica = table.Column<long>(type: "bigint", nullable: true),
-                    Activo = table.Column<bool>(type: "bit", nullable: false),
-                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    FechaEliminacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IpRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true)
+                    Activo = table.Column<bool>(type: "boolean", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    FechaEliminacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IpRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FichaSintoma", x => x.IdFicha);
                     table.ForeignKey(
-                        name: "FK_FichaSintoma_HistoriaClinica_HistoriaClinicaIdHistoriaClinica",
+                        name: "FK_FichaSintoma_HistoriaClinica_HistoriaClinicaIdHistoriaClini~",
                         column: x => x.HistoriaClinicaIdHistoriaClinica,
                         principalSchema: "DET",
                         principalTable: "HistoriaClinica",
@@ -682,20 +683,20 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdDetalle = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IdFicha = table.Column<long>(type: "bigint", nullable: false),
                     IdSintoma = table.Column<long>(type: "bigint", nullable: false),
-                    Observacion = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Activo = table.Column<bool>(type: "bit", nullable: false),
-                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    FechaEliminacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IpRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true)
+                    Observacion = table.Column<string>(type: "text", nullable: true),
+                    Activo = table.Column<bool>(type: "boolean", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    FechaEliminacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IpRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -722,20 +723,20 @@ namespace VET_ANIMAL_API.Migrations
                 columns: table => new
                 {
                     IdResultado = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IdFicha = table.Column<long>(type: "bigint", nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Descripcion = table.Column<string>(type: "text", nullable: true),
                     IdEnfermedad = table.Column<long>(type: "bigint", nullable: false),
-                    Activo = table.Column<bool>(type: "bit", nullable: false),
-                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    FechaEliminacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IpRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    IpEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioRegistro = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioModificacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
-                    UsuarioEliminacion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true)
+                    Activo = table.Column<bool>(type: "boolean", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    FechaEliminacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IpRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    IpEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioRegistro = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioModificacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true),
+                    UsuarioEliminacion = table.Column<string>(type: "character varying(350)", maxLength: 350, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -863,8 +864,7 @@ namespace VET_ANIMAL_API.Migrations
                 schema: "SEG",
                 table: "Role",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaim_RoleId",
@@ -907,8 +907,7 @@ namespace VET_ANIMAL_API.Migrations
                 schema: "SEG",
                 table: "Users",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
         }
 
         /// <inheritdoc />
