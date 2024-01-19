@@ -171,6 +171,11 @@ namespace ProyectoBaseNetCore
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+                dbContext.Database.Migrate();
+            }
             //Captar todas las peticiones en logs y en terminal
             app.UseMiddleware<LogHTTPResponseMiddleware>();
             app.UseLoggerResponseHTTP();
