@@ -20,6 +20,7 @@ namespace ProyectoBaseNetCore.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         protected ClienteService _service;
         private readonly ApplicationDbContext _context;
+        private readonly string userName;
 
         public ClienteController(ApplicationDbContext context, 
             IConfiguration configuration, 
@@ -32,7 +33,7 @@ namespace ProyectoBaseNetCore.Controllers
             this.configuration = configuration;
             this.userManager = userManager;
             this._httpContextAccessor = httpContextAccessor;
-            string userName = Task.Run(async () => await userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "email").Value)).Result.UserName;
+            userName = Task.Run(async () => await userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "email").Value)).Result.UserName;
             var ip = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress?.ToString();
             this._service = new ClienteService(_context,configuration, userName, ip);
         }
@@ -45,13 +46,12 @@ namespace ProyectoBaseNetCore.Controllers
 
         [HttpGet("Cliente")]
         public async Task<IActionResult> GetCliente([FromQuery] string CI) => Ok(await _service.GetClientByCI(CI));
+        [HttpGet("Cliente/data")]
+        public async Task<IActionResult> GetCliente() => Ok(await _service.GetClientByUser(userManager.FindByEmailAsync(userName).Result.Id));
         [HttpPut("Cliente")]
         public async Task<IActionResult> GetCliente(ClienteDTO Cliente) => Ok(await _service.EditCliente(Cliente));
-
         [HttpPost("Cliente")]
         public async Task<IActionResult> NuevoCliente(GuardarClienteViewModel Cliente) =>Ok(await _service.SaveCliente(Cliente));
-          
-
         [HttpDelete("Cliente")]
         public async Task<IActionResult> EliminaCliente(long IdCliente) => Ok(await _service.DeleteCliente(IdCliente));
         [HttpGet("Cliente/mascotas")]
