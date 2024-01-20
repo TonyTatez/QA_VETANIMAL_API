@@ -69,7 +69,7 @@ namespace ProyectoBaseNetCore.Services
 
                 // Verificación y excepción si la mascota ya existe
                 if (CurrentPet is not null) throw new Exception("Ya existe una mascota registrada con ese nombre para este cliente!");
-                
+                Data.FechaNacimiento = Data.FechaNacimiento.HasValue ? Data.FechaNacimiento.Value.ToUniversalTime() : (DateTime?)null;
 
                 // Creación de una Nueva Mascota
                 Mascota NewPet = new Mascota();
@@ -78,7 +78,7 @@ namespace ProyectoBaseNetCore.Services
                 NewPet.IdCliente = Data.IdCliente;
                 NewPet.Raza = Data.Raza;
                 NewPet.Peso = Data.Peso;
-                NewPet.FechaNacimiento = Data.FechaNacimiento;
+                NewPet.FechaNacimiento = Data.FechaNacimiento.;
                 NewPet.Sexo = Data.Sexo;
                 NewPet.Activo = true;
                 NewPet.FechaRegistro = DateTime.UtcNow;
