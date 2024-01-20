@@ -84,7 +84,7 @@ namespace ProyectoBaseNetCore.Services
             NewHistory.IdMascotas = IdMascota;
 
             NewHistory.Activo = true;
-            NewHistory.FechaRegistro = DateTime.Now;
+            NewHistory.FechaRegistro = DateTime.UtcNow;
             NewHistory.UsuarioRegistro = _usuario;
             NewHistory.IpRegistro = _ip;
             await _context.HistoriaClinica.AddAsync(NewHistory);
@@ -100,7 +100,7 @@ namespace ProyectoBaseNetCore.Services
                 if (ClienteEncontrada != null)
                 {
                     ClienteEncontrada.Activo = false;
-                    ClienteEncontrada.FechaEliminacion = DateTime.Now;
+                    ClienteEncontrada.FechaEliminacion = DateTime.UtcNow;
                     ClienteEncontrada.UsuarioEliminacion = _usuario;
                     ClienteEncontrada.IpEliminacion = _ip;
                     await _context.SaveChangesAsync();
@@ -183,7 +183,7 @@ namespace ProyectoBaseNetCore.Services
                 Observacion = Ficha.Observacion,
                 IdHistoriaClinica = Ficha.IdHistoriaClinica,
                 Activo = true,
-                FechaRegistro = DateTime.Now,
+                FechaRegistro = DateTime.UtcNow,
                 UsuarioRegistro = _usuario,
                 IpRegistro = _ip,
             };
@@ -202,7 +202,7 @@ namespace ProyectoBaseNetCore.Services
             CurrentFicha.Peso = Ficha.Peso;
             CurrentFicha.Observacion = Ficha.Observacion;
             CurrentFicha.Activo = true;
-            CurrentFicha.FechaModificacion = DateTime.Now;
+            CurrentFicha.FechaModificacion = DateTime.UtcNow;
             CurrentFicha.UsuarioModificacion = _usuario;
             CurrentFicha.IpModificacion = _ip;
             await _context.SaveChangesAsync();
