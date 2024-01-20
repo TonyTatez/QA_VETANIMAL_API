@@ -78,7 +78,7 @@ namespace ProyectoBaseNetCore.Services
                 NewPet.IdCliente = Data.IdCliente;
                 NewPet.Raza = Data.Raza;
                 NewPet.Peso = Data.Peso;
-                NewPet.FechaNacimiento = Data.FechaNacimiento.;
+                NewPet.FechaNacimiento = Data.FechaNacimiento;
                 NewPet.Sexo = Data.Sexo;
                 NewPet.Activo = true;
                 NewPet.FechaRegistro = DateTime.UtcNow;
