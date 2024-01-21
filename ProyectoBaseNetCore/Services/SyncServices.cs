@@ -71,8 +71,8 @@ namespace ProyectoBaseNetCore.Services
                         string Raza = excelRow.GetCell(6)?.ToString();
                         float Peso = float.Parse(excelRow.GetCell(7)?.ToString()??"0");
                         string Sexo = excelRow.GetCell(8)?.ToString();
-                        DateTime? FNac = excelRow.GetCell(9)?.ToString() != null ? DateTime.Parse(excelRow.GetCell(9)?.ToString()) :null;
-
+                        DateTime? FNac = excelRow.GetCell(9)?.ToString() != null ? DateTime.Parse(excelRow.GetCell(9)?.ToString()) : null;
+                        FNac = FNac.HasValue ? FNac.Value.ToUniversalTime() : (DateTime?)null;
                         // Realizar validaciones y procesamiento de datos de acuerdo a tus requisitos
                         if (string.IsNullOrEmpty(Cedula) || Cedula.Length < 10)
                         {
