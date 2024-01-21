@@ -54,6 +54,17 @@ namespace ProyectoBaseNetCore.Services
                 telefono = x.Telefono,
                 correo= x.Correo,
             }).FirstOrDefaultAsync();
+        public async Task<ClienteDTO> GetClientByUser(string IdUser) => await _context.Cliente
+            .Where(x => x.Activo && x.IdUser == IdUser).Select(x => new ClienteDTO
+            {
+                idCliente = x.IdCliente,
+                identificacion = x.Identificacion,
+                nombres = x.Nombres,
+                codigo = x.Codigo,
+                direccion = x.Direccion,
+                telefono = x.Telefono,
+                correo = x.Correo,
+            }).FirstOrDefaultAsync();
         static bool ValidarCedulaEcuatoriana(string cedula)
         {
             if (cedula.Length != 10)
