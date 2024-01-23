@@ -23,7 +23,7 @@ namespace ProyectoBaseNetCore.Services
 
 
         public async Task<List<ViewMascota>> GetAllMascotasAsync() => await _context.HistoriaClinica
-            .Where(x => x.Activo).Select(x => new ViewMascota
+            .Where(x => x.Activo && x.Mascota.Activo).Select(x => new ViewMascota
             {
                 IdHistoriaClinica = x.IdHistoriaClinica,
                 CodigoHistorial = x.CodigoHistorial,
