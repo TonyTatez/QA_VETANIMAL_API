@@ -106,6 +106,7 @@ namespace ProyectoBaseNetCore.Services
 
                 var CurrentPet = await _context.Mascota.FindAsync(Data.IdMascota);
                 if (CurrentPet == null) throw new Exception("Mascota no encontrada!");
+                Data.FechaNacimiento = Data.FechaNacimiento.HasValue ? Data.FechaNacimiento.Value.ToUniversalTime() : (DateTime?)null;
 
                 CurrentPet.NombreMascota = Data.NombreMascota;
                 CurrentPet.Codigo = Data.CODMascota;

@@ -16,5 +16,6 @@ namespace ProyectoBaseNetCore.Entities
         public virtual Mascota Mascota { get; set; }
         public virtual ICollection<FichaSintoma> FichasSintoma { get; set; }
         public virtual ICollection<FichaControl> FichaControl { get; set; }
+        public virtual ICollection<FichaHemoparasitosis> FichaHemoparasitosis { get; set; }
     }
 }

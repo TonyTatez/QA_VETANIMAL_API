@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using VET_ANIMAL_API.Entities;
 
 namespace ProyectoBaseNetCore.Entities
 {
@@ -11,5 +12,6 @@ namespace ProyectoBaseNetCore.Entities
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public virtual ICollection<FichaDetalle> FichaDetalles { get; set; }
+        public virtual ICollection<FichaHemoparasitosis> FichaHemoparasitosis { get; set; }
     }
 }

@@ -50,7 +50,9 @@ namespace ProyectoBaseNetCore.Services
                         Sintoma = fd.Sintoma.Nombre,
                         Observacion = fd.Observacion,
                     }).ToList(),
+
                 }).ToList(),
+
                 FichasControl = x.FichaControl.Select(fc => new FichaControlDTO
                 {
                     CodigoFichaControl = fc.CodigoFichaControl,
@@ -60,6 +62,19 @@ namespace ProyectoBaseNetCore.Services
                     Motivo = fc.MotivoConsulta.Nombre,
                     Observacion = fc.Observacion,
                 }).ToList(),
+
+                FichasHemoparasitosis = x.FichaHemoparasitosis.Select(fh => new FichaHemoparasitosisDTO
+
+                {
+                    CodigoFichaHemo = fh.CodigoFichaHemo,
+                    Fecha = fh.FechaRegistro,
+                    IdHistoriaClinica = fh.IdHistoriaClinica,
+                    IdFichaHemo = fh.IdFichaHemo,
+                    Enfermedad = fh.Enfermedad.Nombre,
+                    Observaciones = fh.Observacion,
+                    Tratamiento = fh.Tratamiento,
+                }).ToList(),
+
             }).FirstOrDefaultAsync();
 
 
@@ -167,6 +182,18 @@ namespace ProyectoBaseNetCore.Services
                Motivo = x.MotivoConsulta.Nombre,
                Observacion = x.Observacion,
            }).ToListAsync();
+
+        public async Task<List<FichaHemoparasitosisDTO>> GetAllfichasHemoAsync() => await _context.FichaHemoparasitosis
+          .Where(x => x.Activo).Select(x => new FichaHemoparasitosisDTO
+          {
+              IdFichaHemo = x.IdFichaHemo,
+              Fecha = x.FechaRegistro,
+              IdHistoriaClinica = x.IdHistoriaClinica,
+              CodigoFichaHemo = x.CodigoFichaHemo,
+              Enfermedad = x.Enfermedad.Nombre,
+              Observaciones = x.Observacion,
+              Tratamiento = x.Tratamiento,
+          }).ToListAsync();
         public async Task<bool> SaveFichaControlAsync(FichaControlDTO Ficha)
         {
 
@@ -193,6 +220,36 @@ namespace ProyectoBaseNetCore.Services
 
             return true;
         }
+
+        public async Task<bool> SaveFichaHemoAsync(FichaHemoparasitosisDTO Ficha)
+        {
+
+
+            if (string.IsNullOrEmpty(Ficha.Enfermedad)) throw new Exception("Debe registrar una Enfermedad consulta!");
+            bool Exististorial = await _context.HistoriaClinica.Where(x => x.IdHistoriaClinica == Ficha.IdHistoriaClinica).AnyAsync();
+            if (!Exististorial) throw new Exception("Historia clinica no encntrada!");
+            var codigo = await COD.GetOrCreateCodeAsync("FH");
+            long IdEnfermedad = await COD.GetOrCreateEnfermedadAsync(Ficha.Enfermedad);
+
+            FichaHemoparasitosis NewFControl = new FichaHemoparasitosis
+            {
+                CodigoFichaHemo = codigo,
+                IdEnfermedad= IdEnfermedad,
+                IdHistoriaClinica = Ficha.IdHistoriaClinica,
+                Observacion = Ficha.Observaciones,
+                Tratamiento = Ficha.Tratamiento,
+                Activo = true,
+                FechaRegistro = DateTime.UtcNow,
+                UsuarioRegistro = _usuario,
+                IpRegistro = _ip,
+            };
+
+            await _context.FichaHemoparasitosis.AddAsync(NewFControl);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
         public async Task<bool> EditFichaControlAsync(FichaControlDTO Ficha)
         {
             if (Ficha.Motivo == null) throw new Exception("Debe registrar un motivo consulta!");

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ProyectoBaseNetCore;
@@ -11,9 +12,11 @@ using ProyectoBaseNetCore;
 namespace VET_ANIMAL_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240121195930_AnimalVet0002")]
+    partial class AnimalVet0002
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1211,7 +1214,7 @@ namespace VET_ANIMAL_API.Migrations
                     b.Property<long>("IdHistoriaClinica")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("IdSintoma")
+                    b.Property<long>("IdSintoma")
                         .HasColumnType("bigint");
 
                     b.Property<string>("IpEliminacion")
@@ -1474,20 +1477,22 @@ namespace VET_ANIMAL_API.Migrations
             modelBuilder.Entity("VET_ANIMAL_API.Entities.FichaHemoparasitosis", b =>
                 {
                     b.HasOne("ProyectoBaseNetCore.Entities.Enfermedad", "Enfermedad")
-                        .WithMany("FichaHemoparasitosis")
+                        .WithMany()
                         .HasForeignKey("IdEnfermedad")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ProyectoBaseNetCore.Entities.HistoriaClinica", "HistoriaClinica")
-                        .WithMany("FichaHemoparasitosis")
+                        .WithMany()
                         .HasForeignKey("IdHistoriaClinica")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ProyectoBaseNetCore.Entities.Sintoma", "Sintomas")
-                        .WithMany("FichaHemoparasitosis")
-                        .HasForeignKey("IdSintoma");
+                        .WithMany()
+                        .HasForeignKey("IdSintoma")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Enfermedad");
 
@@ -1537,8 +1542,6 @@ namespace VET_ANIMAL_API.Migrations
 
             modelBuilder.Entity("ProyectoBaseNetCore.Entities.Enfermedad", b =>
                 {
-                    b.Navigation("FichaHemoparasitosis");
-
                     b.Navigation("Resultados");
                 });
 
@@ -1551,8 +1554,6 @@ namespace VET_ANIMAL_API.Migrations
                 {
                     b.Navigation("FichaControl");
 
-                    b.Navigation("FichaHemoparasitosis");
-
                     b.Navigation("FichasSintoma");
                 });
 
@@ -1564,8 +1565,6 @@ namespace VET_ANIMAL_API.Migrations
             modelBuilder.Entity("ProyectoBaseNetCore.Entities.Sintoma", b =>
                 {
                     b.Navigation("FichaDetalles");
-
-                    b.Navigation("FichaHemoparasitosis");
                 });
 #pragma warning restore 612, 618
         }

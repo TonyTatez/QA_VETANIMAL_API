@@ -62,5 +62,24 @@ namespace ProyectoBaseNetCore.Utilities
 
             return newMotivo.IdMotivo;
         }
+
+        public async Task<long> GetOrCreateEnfermedadAsync(string Enfermedad, bool D2 = false)
+        {
+            Enfermedad existingMotivo = await _context.Enfermedad.FirstOrDefaultAsync(c => c.Nombre == Enfermedad);
+            if (existingMotivo != null) return existingMotivo.IdEnfermedad;
+
+            Enfermedad newEnfermedad = new Enfermedad
+            {
+                Nombre = Enfermedad,
+                FechaRegistro = DateTime.UtcNow,
+                UsuarioRegistro = _usuario,
+                IpRegistro = _ip,
+            };
+
+            await _context.Enfermedad.AddAsync(newEnfermedad);
+            await _context.SaveChangesAsync();
+
+            return newEnfermedad.IdEnfermedad;
+        }
     }
 }

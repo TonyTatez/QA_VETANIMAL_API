@@ -11,6 +11,7 @@ namespace ProyectoBaseNetCore.DTOs
             public string Cedula { get; set; }
             public List<FichaSintomaDTO> FichasSintoma { get; set; }
             public List<FichaControlDTO> FichasControl { get; set; }
+            public List<FichaHemoparasitosisDTO> FichasHemoparasitosis { get; set; }
         }
         public class FichaSintomaDTO
         {

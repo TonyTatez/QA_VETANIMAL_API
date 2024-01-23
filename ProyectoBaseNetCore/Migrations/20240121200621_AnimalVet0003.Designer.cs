@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ProyectoBaseNetCore;
@@ -11,9 +12,11 @@ using ProyectoBaseNetCore;
 namespace VET_ANIMAL_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240121200621_AnimalVet0003")]
+    partial class AnimalVet0003
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1211,7 +1214,7 @@ namespace VET_ANIMAL_API.Migrations
                     b.Property<long>("IdHistoriaClinica")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("IdSintoma")
+                    b.Property<long>("IdSintoma")
                         .HasColumnType("bigint");
 
                     b.Property<string>("IpEliminacion")
@@ -1487,7 +1490,9 @@ namespace VET_ANIMAL_API.Migrations
 
                     b.HasOne("ProyectoBaseNetCore.Entities.Sintoma", "Sintomas")
                         .WithMany("FichaHemoparasitosis")
-                        .HasForeignKey("IdSintoma");
+                        .HasForeignKey("IdSintoma")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Enfermedad");
 

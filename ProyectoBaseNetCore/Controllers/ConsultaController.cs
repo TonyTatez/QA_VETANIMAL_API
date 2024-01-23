@@ -37,6 +37,9 @@ namespace ProyectoBaseNetCore.Controllers
             this._service = new ConsultaServices(_context,configuration, userName, ip);
         }
 
+        [HttpPost("FichaHemoparasitosis")]
+        public async Task<IActionResult> CreateFichaHemo(FichaHemoparasitosisDTO Ficha) => Ok(await _service.SaveFichaHemoAsync(Ficha));
+
         [HttpGet("historial")]
         public async Task<IActionResult> GetHistoriales(long CI) =>Ok(await _service.GetAllHitorialAsync(CI));
 
@@ -53,6 +56,10 @@ namespace ProyectoBaseNetCore.Controllers
         [HttpGet("FichasControl")]
         public async Task<IActionResult> GetAllFichasControl () => Ok(await _service.GetAllfichasControlAsync());
 
+        [HttpGet("FichasHemo")]
+        public async Task<IActionResult> GetAllFichasHemo() => Ok(await _service.GetAllfichasHemoAsync());
+
+
         [HttpGet("FichasControlSospecha")]
         public async Task<IActionResult> GetFichasControlConSospechaHemoAsync() => Ok(await _service.GetFichasControlConSospechaHemoAsync());
 
@@ -64,6 +71,8 @@ namespace ProyectoBaseNetCore.Controllers
         /// </remarks>
         [HttpPost("FichaControl")]
         public async Task<IActionResult> CreateFichaControl (FichaControlDTO Ficha) => Ok(await _service.SaveFichaControlAsync(Ficha));
+
+        
 
         [HttpPut("FichaControl")]
         public async Task<IActionResult> EditFichaControl(FichaControlDTO Ficha) => Ok(await _service.EditFichaControlAsync(Ficha));
