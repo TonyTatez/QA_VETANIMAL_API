@@ -18,5 +18,9 @@ namespace ProyectoBaseNetCore.Entities
         [ForeignKey("Cliente")]
         public long IdCliente { get; set; }
         public virtual Cliente Cliente { get; set; }
+
+        [ForeignKey("Razas")]
+        public long IdRaza { get; set; }
+        public virtual Razas RazaNueva { get; set; } 
     }
 }

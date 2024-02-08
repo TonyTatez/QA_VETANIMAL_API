@@ -31,6 +31,7 @@ namespace ProyectoBaseNetCore
 
         public DbSet<FichaSintoma> FichaSintomas { get; set; }
         public DbSet<FichaHemoparasitosis> FichaHemoparasitosis { get; set; }
+        public DbSet<Razas> Razas { get; set; }
         public DbSet<HistoriaClinica> HistoriaClinica { get; set; }
         public DbSet<Resultado> Resultado { get; set; }
         public DbSet<TipoEnfermedad> TipoEnfermedad { get; set; }
