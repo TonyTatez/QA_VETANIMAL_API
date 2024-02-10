@@ -139,6 +139,7 @@ namespace ProyectoBaseNetCore.Services
                     .ThenInclude(hc => hc.Mascota)
                 .Include(fc => fc.MotivoConsulta)
                 .Where(fc => fc.Observacion.Contains("SOSPECHA HEMO"))
+                .Where(fc => !_context.FichaHemoparasitosis.Any(fh => fh.IdFichaControl == fc.IdFichaControl))
                 .Select(fc => new FichaControlDTO
                 {
                     CodigoFichaControl = fc.CodigoFichaControl,
@@ -236,6 +237,7 @@ namespace ProyectoBaseNetCore.Services
                 CodigoFichaHemo = codigo,
                 IdEnfermedad= IdEnfermedad,
                 IdHistoriaClinica = Ficha.IdHistoriaClinica,
+                IdFichaControl= Ficha.IdFichaControl,
                 Observacion = Ficha.Observaciones,
                 Tratamiento = Ficha.Tratamiento,
                 Activo = true,

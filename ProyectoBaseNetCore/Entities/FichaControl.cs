@@ -18,5 +18,7 @@ namespace VET_ANIMAL_API.Entities
         public string Observacion { get; set; }
         public virtual HistoriaClinica HistoriaClinica { get; set; }
         public virtual MotivoConsulta MotivoConsulta { get; set; }
+
+        public virtual ICollection<FichaHemoparasitosis> FichaHemoparasitosis { get; set; }
     }
 }

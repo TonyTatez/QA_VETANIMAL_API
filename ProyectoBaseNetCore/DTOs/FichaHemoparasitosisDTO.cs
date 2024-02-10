@@ -5,6 +5,7 @@
         public long IdFichaHemo { get; set; }
         public string CodigoFichaHemo { get; set; }      
         public long IdHistoriaClinica { get; set; }
+        public long IdFichaControl { get; set; }
         public DateTime Fecha { get; set; }
         public long IdMascota { get; set; }
         public long IdEnfermedad { get; set; }

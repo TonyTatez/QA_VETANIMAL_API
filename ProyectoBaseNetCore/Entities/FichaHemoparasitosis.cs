@@ -19,8 +19,12 @@ namespace VET_ANIMAL_API.Entities
         public long IdEnfermedad{ get; set; }
         public string Observacion { get; set; }
         public string Tratamiento { get; set; }
+
+        public long IdFichaControl { get; set; } 
         public virtual HistoriaClinica HistoriaClinica { get; set; }
         public virtual Enfermedad Enfermedad { get; set; }
         public virtual Sintoma Sintomas { get; set; }
+
+        public virtual FichaControl FichaControl { get; set; } 
     }
 }
