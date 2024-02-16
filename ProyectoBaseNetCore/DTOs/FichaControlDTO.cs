@@ -16,5 +16,6 @@
         public string Raza { get; set; }
         public string Sexo { get; set; }
         public string Cliente { get; set; }
+        public string Resultado { get; set; }
     }
 }
