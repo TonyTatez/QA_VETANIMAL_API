@@ -99,7 +99,16 @@ namespace VET_ANIMAL_API.Services
             return fichasControl;
         }
 
+        public async Task<Dictionary<string, int>> ContarCasosPorEnfermedadAsync()
+        {
+            var casosPorEnfermedad = await _context.FichaHemoparasitosis
+                .Where(fc => fc.Activo)
+                .GroupBy(fc => fc.Enfermedad.Nombre) // Agrupar por el nombre de la enfermedad
+                .Select(g => new { Enfermedad = g.Key, Cantidad = g.Count() })
+                .ToDictionaryAsync(x => x.Enfermedad, x => x.Cantidad);
 
+            return casosPorEnfermedad;
+        }
 
 
 

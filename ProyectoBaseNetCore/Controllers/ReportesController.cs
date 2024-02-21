@@ -49,7 +49,19 @@ namespace VET_ANIMAL_API.Controllers
         [HttpGet("ReportesHistorico")]
         public async Task<IActionResult> GetHistoriasClinicasAsync(string FechaInicio, string FechaFin, int enfermedades, string razas, string sexo) => Ok(await _service.GetHistoriasClinicasAsync(DateTime.Parse(FechaInicio), DateTime.Parse(FechaFin), enfermedades, razas, sexo));
 
-
+        [HttpGet("ContarCasosPorEnfermedad")]
+        public async Task<IActionResult> ContarCasosPorEnfermedad()
+        {
+            try
+            {
+                var casosPorEnfermedad = await _service.ContarCasosPorEnfermedadAsync();
+                return Ok(casosPorEnfermedad);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener la cantidad de casos por enfermedad: {ex.Message}");
+            }
+        }
 
 
 
