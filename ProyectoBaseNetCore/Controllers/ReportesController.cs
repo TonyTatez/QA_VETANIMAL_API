@@ -50,19 +50,7 @@ namespace VET_ANIMAL_API.Controllers
         public async Task<IActionResult> GetHistoriasClinicasAsync(string FechaInicio, string FechaFin, int enfermedades, string razas, string sexo) => Ok(await _service.GetHistoriasClinicasAsync(DateTime.Parse(FechaInicio), DateTime.Parse(FechaFin), enfermedades, razas, sexo));
 
         [HttpGet("ContarCasosPorEnfermedad")]
-        public async Task<IActionResult> ContarCasosPorEnfermedad()
-        {
-            try
-            {
-                var casosPorEnfermedad = await _service.ContarCasosPorEnfermedadAsync();
-                return Ok(casosPorEnfermedad);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error al obtener la cantidad de casos por enfermedad: {ex.Message}");
-            }
-        }
-
+        public async Task<IActionResult> ContarCasosPorEnfermedad(int? año = null, int? mes = null) =>Ok(await _service.ContarCasosPorEnfermedadAsync(año, mes));
 
 
 

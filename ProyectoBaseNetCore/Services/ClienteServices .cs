@@ -130,11 +130,17 @@ namespace ProyectoBaseNetCore.Services
             }
         }
 
-        public async Task<int> GetNumeroClientes()
+        public async Task<(int NumeroClientes, int NumeroMascotas)> GetNumeroClientesYNumeroMascotas()
         {
             try
             {
-                return await _context.Cliente.CountAsync(x => x.Activo);
+                // Contar el número de clientes activos
+                int numeroClientes = await _context.Cliente.CountAsync(x => x.Activo);
+
+                // Contar el número de mascotas registradas
+                int numeroMascotas = await _context.Mascota.CountAsync(x => x.Activo);
+
+                return (numeroClientes, numeroMascotas);
             }
             catch (Exception ex)
             {

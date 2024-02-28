@@ -36,6 +36,9 @@ namespace VET_ANIMAL_API.Controllers
         [HttpGet("ListarRazas")]
         public async Task<IActionResult> GetRazas() => Ok(await _service.GetRazas());
 
+        [HttpGet("CantidadXRazas")]
+        public async Task<IActionResult> GetCantidadRazas() => Ok(await _service.GetCantidadRazas());
+
         [HttpPost("NuevaRaza")]
         public async Task<IActionResult> NuevaPais(RazasViewModel Pais) => Ok(await _service.SaveRaza(Pais));
 

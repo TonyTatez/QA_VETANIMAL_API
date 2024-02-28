@@ -28,6 +28,23 @@ namespace VET_ANIMAL_API.Services
                         idRaza = x.IdRaza
                     }).ToListAsync();
 
+
+        public Task<List<RazaCantidadViewModel>> GetCantidadRazas()
+        {
+            return context.Mascota
+                .Where(x => x.Activo)
+                .GroupBy(x => x.Raza)
+                .Select(g => new RazaCantidadViewModel
+                {
+                    DescripcionRaza = g.Key,
+                    Cantidad = g.Count()
+                })
+                .ToListAsync();
+        }
+
+
+
+
         public Task<RazasViewModel> GetIdPais(long IdRaza) => context.Razas
             .AsNoTracking()
             .Where(x => x.Activo && x.IdRaza == IdRaza)

@@ -98,18 +98,33 @@ namespace VET_ANIMAL_API.Services
 
             return fichasControl;
         }
-
-        public async Task<Dictionary<string, int>> ContarCasosPorEnfermedadAsync()
+        public async Task<List<object>> ContarCasosPorEnfermedadAsync(int? año = null, int? mes = null)
         {
-            var casosPorEnfermedad = await _context.FichaHemoparasitosis
-                .Where(fc => fc.Activo)
-                .GroupBy(fc => fc.Enfermedad.Nombre) // Agrupar por el nombre de la enfermedad
-                .Select(g => new { Enfermedad = g.Key, Cantidad = g.Count() })
-                .ToDictionaryAsync(x => x.Enfermedad, x => x.Cantidad);
+            var query = _context.FichaHemoparasitosis
+                                .Where(fc => fc.Activo);
 
-            return casosPorEnfermedad;
+            // Aplicar filtros de año y/o mes si están presentes
+            if (año.HasValue)
+            {
+                query = query.Where(fc => fc.FechaRegistro.Year == año);
+            }
+
+            if (mes.HasValue)
+            {
+                query = query.Where(fc => fc.FechaRegistro.Month == mes);
+            }
+
+            var casosPorEnfermedad = await query
+                                            .GroupBy(fc => fc.Enfermedad.Nombre)
+                                            .Select(g => new
+                                            {
+                                                Enfermedad = g.Key,
+                                                Cantidad = g.Count()
+                                            })
+                                            .ToListAsync();
+
+            return casosPorEnfermedad.Cast<object>().ToList();
         }
-
 
 
     }

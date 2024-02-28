@@ -42,7 +42,7 @@ namespace ProyectoBaseNetCore.Controllers
         public async Task<IActionResult> GetClientes() =>Ok(await _service.GetCliente());
 
         [HttpGet("NumeroClientes")]
-        public async Task<IActionResult> GetNumeroClientes() => Ok(await _service.GetNumeroClientes());
+        public async Task<IActionResult> GetNumeroClientesYNumeroMascotas() => Ok(await _service.GetNumeroClientesYNumeroMascotas());
 
         [HttpGet("Cliente")]
         public async Task<IActionResult> GetCliente([FromQuery] string CI) => Ok(await _service.GetClientByCI(CI));
