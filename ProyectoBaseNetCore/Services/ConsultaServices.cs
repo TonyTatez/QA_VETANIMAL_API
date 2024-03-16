@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Messaging;
+using Microsoft.EntityFrameworkCore;
 using NPOI.OpenXmlFormats.Spreadsheet;
 using ProyectoBaseNetCore.DTOs;
 using ProyectoBaseNetCore.Entities;
 using ProyectoBaseNetCore.Utilities;
 using VET_ANIMAL_API.DTOs;
 using VET_ANIMAL_API.Entities;
-
+using VET_ANIMAL_API.Models;
+using Microsoft.AspNetCore.Mvc;
 namespace ProyectoBaseNetCore.Services
 {
     public class ConsultaServices
@@ -77,6 +79,92 @@ namespace ProyectoBaseNetCore.Services
 
             }).FirstOrDefaultAsync();
 
+
+        public async Task<IActionResult> ObtenerPDFPorIdFichaHemo(string idFichaHemo)
+        {
+            try
+            {
+                // Convertir el idFichaHemo a tipo long
+                long id = Convert.ToInt64(idFichaHemo);
+
+                // Buscar el registro en la base de datos usando el id
+                var tablaContenido = await _context.TablaContenido.FirstOrDefaultAsync(tc => tc.IdFichaHemo == id && tc.Activo);
+
+                // Verificar si se encontró el registro
+                if (tablaContenido != null)
+                {// Retornar el valor del campo Resultado directamente
+                    return Ok(tablaContenido.Resultado);
+                }
+                else
+                {
+                    // No se encontró ningún registro con el id proporcionado
+                    return new NotFoundResult();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones y retorno de false
+                throw;
+            }
+        }
+        public async Task<bool> GuardadoTest(IFormFile Excel, string idFichaHemo, string resultado)
+        {
+            try
+            {
+                // Convertir el archivo a bytes
+                byte[] fileBytes;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    Excel.CopyTo(ms);
+                    fileBytes = ms.ToArray();
+                }
+
+                // Crear una nueva instancia de TablaContenido
+                var tablaContenido = new TablaContenido
+                {
+                    Content = fileBytes,
+                    IdFichaHemo = Convert.ToInt64(idFichaHemo),
+                    Resultado = resultado,
+                    // Establecer campos adicionales directamente en TablaContenido
+                    Activo = true,
+                    FechaRegistro = DateTime.UtcNow,
+                    UsuarioRegistro = _usuario,
+                    IpRegistro = _ip
+                };
+
+                // Agregar la instancia a tu contexto de base de datos y guardar los cambios
+                _context.TablaContenido.Add(tablaContenido);
+                await _context.SaveChangesAsync();
+
+                // El guardado fue exitoso
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores
+                // Puedes registrar el error o devolverlo como excepción para manejarlo en el controlador
+                return false;
+            }
+        }
+        public async Task<List<FichaHemoparasitosisTEST>> GetAllFichaHemoparasitosisAsync()
+        {
+            return await _context.FichaHemoparasitosis
+                .Select(fh => new FichaHemoparasitosisTEST
+                {
+                    CodigoFichaHemo = fh.CodigoFichaHemo,
+                    Fecha = fh.FechaRegistro,
+                    IdHistoriaClinica = fh.IdHistoriaClinica,
+                    IdFichaHemo = fh.IdFichaHemo,
+                    Enfermedad = fh.Enfermedad.Nombre,
+                    Observaciones = fh.Observacion,
+                    Tratamiento = fh.Tratamiento,
+                    NombreMascota = fh.HistoriaClinica.Mascota.NombreMascota,
+                    Cliente = fh.HistoriaClinica.Mascota.Cliente.Nombres,
+                    Raza = fh.HistoriaClinica.Mascota.Raza,
+                    Peso = fh.HistoriaClinica.Mascota.Peso,
+
+                }).ToListAsync();
+        }
 
         public async Task<ClienteDTO> GetIdCliente(string Ruc) => await _context.Cliente
             .Where(x => x.Activo && x.Identificacion == Ruc).Select(x => new ClienteDTO
@@ -221,6 +309,9 @@ namespace ProyectoBaseNetCore.Services
 
             return true;
         }
+
+
+
 
         public async Task<bool> SaveFichaHemoAsync(FichaHemoparasitosisDTO Ficha)
         {

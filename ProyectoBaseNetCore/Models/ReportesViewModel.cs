@@ -34,7 +34,17 @@ namespace VET_ANIMAL_API.Models
         public string Resultado { get; set; }
 
     }
+    public class ItemTablaContenido
+    {
+        public long idFichaHemo { get; set; }
+        public byte[] content { get; set; }
+    }
 
+    public class PDFResultadoModel
+    {
+        
+        public string Resultado { get; set; }
+    }
     public class ExcelHistoricoLlantas
     {
         public long Termico { get; set; }

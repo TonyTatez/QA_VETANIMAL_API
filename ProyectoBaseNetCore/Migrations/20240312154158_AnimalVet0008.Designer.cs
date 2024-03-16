@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ProyectoBaseNetCore;
@@ -11,9 +12,11 @@ using ProyectoBaseNetCore;
 namespace VET_ANIMAL_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240312154158_AnimalVet0008")]
+    partial class AnimalVet0008
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1148,9 +1151,6 @@ namespace VET_ANIMAL_API.Migrations
                     b.Property<string>("IpRegistro")
                         .HasMaxLength(350)
                         .HasColumnType("character varying(350)");
-
-                    b.Property<string>("Resultado")
-                        .HasColumnType("text");
 
                     b.Property<string>("UsuarioEliminacion")
                         .HasMaxLength(350)
