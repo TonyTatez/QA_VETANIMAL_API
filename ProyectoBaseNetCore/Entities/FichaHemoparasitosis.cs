@@ -26,5 +26,6 @@ namespace VET_ANIMAL_API.Entities
         public virtual Sintoma Sintomas { get; set; }
 
         public virtual FichaControl FichaControl { get; set; } 
+        public virtual TablaContenido TablaContenido { get; set; } 
     }
 }

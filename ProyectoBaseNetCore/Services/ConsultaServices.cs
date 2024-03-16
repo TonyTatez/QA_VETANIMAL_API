@@ -162,6 +162,8 @@ namespace ProyectoBaseNetCore.Services
                     Cliente = fh.HistoriaClinica.Mascota.Cliente.Nombres,
                     Raza = fh.HistoriaClinica.Mascota.Raza,
                     Peso = fh.HistoriaClinica.Mascota.Peso,
+                    IdContenido = fh.TablaContenido.Id,
+
 
                 }).ToListAsync();
         }

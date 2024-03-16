@@ -25,6 +25,7 @@
         public DateTime Fecha { get; set; }
         public long IdMascota { get; set; }
         public long IdEnfermedad { get; set; }
+        public long? IdContenido { get; set; }
         public string Enfermedad { get; set; }
         public string Tratamiento { get; set; }
         public string Observaciones { get; set; }
@@ -32,5 +33,6 @@
         public string Cliente { get; set; }
         public float? Peso { get; set; }
         public string Raza { get; set; }
+
     }
 }
