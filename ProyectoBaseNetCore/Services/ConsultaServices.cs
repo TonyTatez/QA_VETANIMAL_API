@@ -93,7 +93,7 @@ namespace ProyectoBaseNetCore.Services
                 // Verificar si se encontró el registro
                 if (tablaContenido != null)
                 {// Retornar el valor del campo Resultado directamente
-                    return Ok(tablaContenido.Resultado);
+                    return new  JsonResult(tablaContenido.Resultado);
                 }
                 else
                 {
