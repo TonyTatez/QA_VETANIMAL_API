@@ -27,32 +27,34 @@ namespace ProyectoBaseNetCore.Services
                 idCliente = x.IdCliente,
                 direccion = x.Direccion,
                 telefono = x.Telefono,
-                correo= x.Correo,
+                correo = x.Correo,
                 codigo = x.Codigo,
             }).ToListAsync();
-        public async Task<List<MascotaDTO>> GetMascotasCliente(string CI) => await _context.Mascota
-            .Where(x => x.Activo && x.Cliente.Identificacion.Equals(CI)).Select(x => new MascotaDTO
-            {
-                IdMascota = x.IdMascota,
-                CODMascota = x.Codigo,
-                NombreMascota = x.NombreMascota,
-                IdCliente = x.IdCliente,
-                Cliente = x.Cliente.Nombres,
-                Raza = x.Raza,
-                Peso = x.Peso,
-                Sexo = x.Sexo,
-                FechaNacimiento = x.FechaNacimiento,
-            }).ToListAsync();
+        public async Task<List<MascotaDTO>> GetMascotasCliente(string CI) => await _context.HistoriaClinica
+         .Where(hc => hc.Mascota.Activo && hc.Mascota.Cliente.Identificacion.Equals(CI))
+         .Select(hc => new MascotaDTO
+         {
+             IdMascota = hc.Mascota.IdMascota,
+             CODMascota = hc.Mascota.Codigo,
+             NombreMascota = hc.Mascota.NombreMascota,
+             IdCliente = hc.Mascota.IdCliente,
+             IdHistoriaClinica = hc.IdHistoriaClinica,
+             Cliente = hc.Mascota.Cliente.Nombres,
+             Raza = hc.Mascota.Raza,
+             Peso = hc.Mascota.Peso,
+             Sexo = hc.Mascota.Sexo,
+             FechaNacimiento = hc.Mascota.FechaNacimiento,
+         }).ToListAsync();
         public async Task<ClienteDTO> GetClientByCI(string CI) => await _context.Cliente
             .Where(x => x.Activo && x.Identificacion == CI).Select(x => new ClienteDTO
             {
                 idCliente = x.IdCliente,
                 identificacion = x.Identificacion,
                 nombres = x.Nombres,
-                codigo= x.Codigo,
+                codigo = x.Codigo,
                 direccion = x.Direccion,
                 telefono = x.Telefono,
-                correo= x.Correo,
+                correo = x.Correo,
             }).FirstOrDefaultAsync();
         public async Task<ClienteDTO> GetClientByUser(string IdUser) => await _context.Cliente
             .Where(x => x.Activo && x.IdUser == IdUser).Select(x => new ClienteDTO
@@ -65,7 +67,7 @@ namespace ProyectoBaseNetCore.Services
                 telefono = x.Telefono,
                 correo = x.Correo,
             }).FirstOrDefaultAsync();
-        
+
         public async Task<bool> SaveCliente(GuardarClienteViewModel Cliente)
         {
             var ClienteEncontrada = await _context.Cliente.FirstOrDefaultAsync(x => x.Activo && (x.IdCliente == Cliente.idCliente || x.Nombres == Cliente.nombres));

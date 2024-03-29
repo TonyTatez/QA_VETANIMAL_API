@@ -53,6 +53,8 @@ namespace VET_ANIMAL_API.Controllers
         public async Task<IActionResult> ContarCasosPorEnfermedad(int? año = null, int? mes = null) =>Ok(await _service.ContarCasosPorEnfermedadAsync(año, mes));
 
 
+        [HttpGet("ContarCasosTotales")]
+        public async Task<IActionResult> ObtenerDetallesYTotalesFichasHemoparasitosisAsync(int? año = null, int? mes = null) => Ok(await _service.ObtenerDetallesYTotalesFichasHemoparasitosisAsync(año, mes));
 
 
 

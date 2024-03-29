@@ -126,11 +126,46 @@ namespace VET_ANIMAL_API.Services
             return casosPorEnfermedad.Cast<object>().ToList();
         }
 
+        public async Task<object> ObtenerDetallesYTotalesFichasHemoparasitosisAsync(int? año = null, int? mes = null)
+        {
+            var queryFichaHemoparasitosis = _context.FichaHemoparasitosis
+                                                   .Where(fc => fc.Activo);
+
+            var queryTablaContenido = _context.TablaContenido;
+
+            // Aplicar filtros de año y/o mes si están presentes a ambas consultas
+            if (año.HasValue)
+            {
+                queryFichaHemoparasitosis = queryFichaHemoparasitosis.Where(fc => fc.FechaRegistro.Year == año);
+            }
+
+            if (mes.HasValue)
+            {
+                queryFichaHemoparasitosis = queryFichaHemoparasitosis.Where(fc => fc.FechaRegistro.Month == mes);
+            }
+
+            var detallesFichas = await queryFichaHemoparasitosis
+                                        .Select(fc => new
+                                        {
+                                            IdFichaControl = fc.IdFichaControl, 
+                                            IdFichaHemo = fc.IdFichaHemo, 
+                                            ResultadoAlgoritmo = fc.Enfermedad.Nombre,                                                                                     
+                                            ResultadoFrotis = fc.TablaContenido.Resultado,
+                                            IdHistoriaClinica = fc.IdHistoriaClinica, 
+                                        })
+                                        .ToListAsync();
+
+            var totalDiagnosticosFichaHemoparasitosis = await queryFichaHemoparasitosis.CountAsync();
+            var totalDiagnosticosTablaContenido = await queryTablaContenido.CountAsync();
+
+            return new
+            {
+                DetallesFichas = detallesFichas,
+                DiagnosticoAlgoritmo = totalDiagnosticosFichaHemoparasitosis,
+                DiagnosticoFrotis = totalDiagnosticosTablaContenido
+            };
+        }
 
     }
-
-
-
-
 
 }
