@@ -53,6 +53,9 @@ namespace ProyectoBaseNetCore.Controllers
         [HttpGet("ObtenerPdf/{idFichaHemo}")]
         public async Task<IActionResult> ObtenerPDFPorIdFichaHemo(string idFichaHemo) => Ok(await _service.ObtenerPDFPorIdFichaHemo(idFichaHemo));
 
+        [HttpGet("GetAllResultados")]
+        public async Task<IActionResult> GetAllResultados() => Ok(await _service.GetAllResultados());
+
         [HttpDelete("historial")]
         public async Task<IActionResult> EliminaCliente(long IdCliente) => Ok(await _service.DeleteHistorial(IdCliente));
 

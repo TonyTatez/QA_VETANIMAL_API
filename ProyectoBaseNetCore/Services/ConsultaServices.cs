@@ -146,6 +146,24 @@ namespace ProyectoBaseNetCore.Services
                 return false;
             }
         }
+        public async Task<List<FichaTEST>> GetAllResultados()
+        {
+            return await _context.FichaHemoparasitosis
+                .Where(fh => fh.TablaContenido.Resultado != null)
+                .Select(fh => new FichaTEST
+                {
+                    IdHistoriaClinica = fh.IdHistoriaClinica,
+                    IdFichaHemo = fh.IdFichaHemo,
+                    ResultadoAlgoritmo = fh.Enfermedad.Nombre,
+                    IdContenido = fh.TablaContenido.Id,
+                    ResultadoFrotis = fh.TablaContenido.Resultado,
+                    ResultadoFinal =
+                        (fh.Enfermedad.Nombre == "BABESIOSIS" && fh.TablaContenido.Resultado == "POSITIVO (Babesia spp.) ") ||
+                        (fh.Enfermedad.Nombre == "ANAPLASMOSIS" && fh.TablaContenido.Resultado == "POSITIVO (Anaplasma spp.) ") ||
+                        (fh.Enfermedad.Nombre == "EHRLICHIOSIS" && fh.TablaContenido.Resultado == "POSITIVO (Ehrlichia spp.) ") ||
+                        (fh.Enfermedad.Nombre == "Enfermedad Desconocida" && fh.TablaContenido.Resultado == "NEGATIVO  ") ? "1" : "0"
+                }).ToListAsync();
+        }
         public async Task<List<FichaHemoparasitosisTEST>> GetAllFichaHemoparasitosisAsync()
         {
             return await _context.FichaHemoparasitosis

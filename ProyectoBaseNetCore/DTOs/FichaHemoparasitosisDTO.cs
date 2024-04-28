@@ -27,6 +27,7 @@
         public long IdEnfermedad { get; set; }
         public long? IdContenido { get; set; }
         public string Enfermedad { get; set; }
+        public string Frotis { get; set; }
         public string Tratamiento { get; set; }
         public string Observaciones { get; set; }
         public string NombreMascota { get; set; }
@@ -35,4 +36,16 @@
         public string Raza { get; set; }
 
     }
+    public class FichaTEST
+    {
+        public long IdHistoriaClinica { get; set; }
+        public long IdFichaHemo { get; set; }
+        public long? IdContenido { get; set; }
+        public string ResultadoAlgoritmo { get; set; }
+        public string ResultadoFrotis { get; set; }
+        public string ResultadoFinal { get; set; }
+       
+
+    }
+
 }
