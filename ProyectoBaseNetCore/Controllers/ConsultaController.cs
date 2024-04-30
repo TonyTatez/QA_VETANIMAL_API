@@ -81,8 +81,8 @@ namespace ProyectoBaseNetCore.Controllers
         /// <remarks>
         /// Aqui se envia l curepo para crear la fichaq 
         /// </remarks>
-        [HttpPost("FichaControl")]
-        public async Task<IActionResult> CreateFichaControl(FichaControlDTO Ficha) => Ok(await _service.SaveFichaControlAsync(Ficha));
+        [HttpPost("GuardarFichaControl")]
+        public async Task<IActionResult> GuardarFichaControlAsync(FichaControlDTO Ficha) => Ok(await _service.GuardarFichaControlAsync(Ficha));
 
 
 

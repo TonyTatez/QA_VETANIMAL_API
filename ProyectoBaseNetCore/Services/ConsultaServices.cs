@@ -333,7 +333,7 @@ namespace ProyectoBaseNetCore.Services
         //}
 
 
-        public async Task<bool> SaveFichaControlAsync(FichaControlDTO Ficha)
+        public async Task<bool> GuardarFichaControlAsync(FichaControlDTO Ficha)
         {
             if (string.IsNullOrEmpty(Ficha.Motivo))
                 throw new Exception("Debe registrar un motivo consulta!");
