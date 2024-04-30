@@ -307,15 +307,31 @@ namespace ProyectoBaseNetCore.Services
 
         public async Task<bool> SaveFichaControlAsync(FichaControlDTO Ficha)
         {
+            if (string.IsNullOrEmpty(Ficha.Motivo))
+                throw new Exception("Debe registrar un motivo consulta!");
 
-            if (string.IsNullOrEmpty(Ficha.Motivo)) throw new Exception("Debe registrar un motivo consulta!");
-            bool Exististorial = await _context.HistoriaClinica.Where(x => x.IdHistoriaClinica == Ficha.IdHistoriaClinica).AnyAsync();
-            if (!Exististorial) throw new Exception("Historia clinica no encntrada!");
+            bool Exististorial = await _context.HistoriaClinica
+                .Where(x => x.IdHistoriaClinica == Ficha.IdHistoriaClinica)
+                .AnyAsync();
+
+            if (!Exististorial)
+                throw new Exception("Historia clinica no encontrada!");
+
+            // Obtener el último IdFichaControl
+            long ultimoId = await _context.FichaControl
+                .OrderByDescending(fc => fc.IdFichaControl)
+                .Select(fc => fc.IdFichaControl)
+                .FirstOrDefaultAsync();
+
+            // Incrementar el último IdFichaControl en uno para obtener el nuevo IdFichaControl
+            long nuevoId = ultimoId + 1;
+
             //var codigo = await COD.GetOrCreateCodeAsync("FC");
             long IdMotivo = await COD.GetOrCreateMotivoAsync(Ficha.Motivo);
+
             FichaControl NewFControl = new FichaControl
             {
-
+                IdFichaControl = nuevoId, // Asignar el nuevo IdFichaControl
                 IdMotivo = IdMotivo,
                 Peso = Ficha.Peso,
                 Observacion = Ficha.Observacion,
@@ -331,7 +347,6 @@ namespace ProyectoBaseNetCore.Services
 
             return true;
         }
-
 
         public async Task<bool> SaveFichaHemoAsync(FichaHemoparasitosisDTO Ficha)
         {
