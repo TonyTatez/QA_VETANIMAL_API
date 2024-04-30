@@ -303,15 +303,49 @@ namespace ProyectoBaseNetCore.Services
               Observaciones = x.Observacion,
               Tratamiento = x.Tratamiento,
           }).ToListAsync();
+
+
+        //public async Task<bool> SaveFichaControlAsync(FichaControlDTO Ficha)
+        //{
+
+        //    if (string.IsNullOrEmpty(Ficha.Motivo)) throw new Exception("Debe registrar un motivo consulta!");
+        //    bool Exististorial = await _context.HistoriaClinica.Where(x => x.IdHistoriaClinica == Ficha.IdHistoriaClinica).AnyAsync();
+        //    if (!Exististorial) throw new Exception("Historia clinica no encntrada!");
+        //    var codigo = await COD.GetOrCreateCodeAsync("FC");
+        //    long IdMotivo = await COD.GetOrCreateMotivoAsync(Ficha.Motivo);
+        //    FichaControl NewFControl = new FichaControl
+        //    {
+        //        CodigoFichaControl = codigo,
+        //        IdMotivo = IdMotivo,
+        //        Peso = Ficha.Peso,
+        //        Observacion = Ficha.Observacion,
+        //        IdHistoriaClinica = Ficha.IdHistoriaClinica,
+        //        Activo = true,
+        //        FechaRegistro = DateTime.UtcNow,
+        //        UsuarioRegistro = _usuario,
+        //        IpRegistro = _ip,
+        //    };
+
+        //    await _context.FichaControl.AddAsync(NewFControl);
+        //    await _context.SaveChangesAsync();
+
+        //    return true;
+        //}
+
+
         public async Task<bool> SaveFichaControlAsync(FichaControlDTO Ficha)
         {
+            if (string.IsNullOrEmpty(Ficha.Motivo))
+                throw new Exception("Debe registrar un motivo consulta!");
 
-            if (string.IsNullOrEmpty(Ficha.Motivo)) throw new Exception("Debe registrar un motivo consulta!");
-            bool Exististorial = await _context.HistoriaClinica.Where(x => x.IdHistoriaClinica == Ficha.IdHistoriaClinica).AnyAsync();
-            if (!Exististorial) throw new Exception("Historia clinica no encntrada!");
+            bool ExistHistorial = await _context.HistoriaClinica.AnyAsync(x => x.IdHistoriaClinica == Ficha.IdHistoriaClinica);
+            if (!ExistHistorial)
+                throw new Exception("Historia clinica no encontrada!");
+
             var codigo = await COD.GetOrCreateCodeAsync("FC");
             long IdMotivo = await COD.GetOrCreateMotivoAsync(Ficha.Motivo);
-            FichaControl NewFControl = new FichaControl
+
+            var NewFControl = new FichaControl
             {
                 CodigoFichaControl = codigo,
                 IdMotivo = IdMotivo,
@@ -321,16 +355,14 @@ namespace ProyectoBaseNetCore.Services
                 Activo = true,
                 FechaRegistro = DateTime.UtcNow,
                 UsuarioRegistro = _usuario,
-                IpRegistro = _ip,
+                IpRegistro = _ip
             };
 
-            await _context.FichaControl.AddAsync(NewFControl);
+            _context.FichaControl.Add(NewFControl);
             await _context.SaveChangesAsync();
 
             return true;
         }
-
-
 
 
         public async Task<bool> SaveFichaHemoAsync(FichaHemoparasitosisDTO Ficha)
