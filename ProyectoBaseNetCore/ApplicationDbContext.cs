@@ -33,6 +33,7 @@ namespace ProyectoBaseNetCore
         public DbSet<FichaHemoparasitosis> FichaHemoparasitosis { get; set; }
         public DbSet<TablaContenido> TablaContenido { get; set; }
         public DbSet<Razas> Razas { get; set; }
+        public DbSet<Veterinario> Veterinario { get; set; }
         public DbSet<HistoriaClinica> HistoriaClinica { get; set; }
         public DbSet<Resultado> Resultado { get; set; }
         public DbSet<TipoEnfermedad> TipoEnfermedad { get; set; }
